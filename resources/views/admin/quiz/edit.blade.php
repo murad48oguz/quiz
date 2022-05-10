@@ -1,23 +1,24 @@
 <x-app-layout>
 
-    <x-slot name="header"> Create a Quiz</x-slot>
+    <x-slot name="header"> Edit this quiz</x-slot>
 
 
    
    
     <div class="card">
         <div class="card-body">
-            <form action="{{route('quizzes.store')}}" method="POST" novalidate>
+            <form action="{{route('quizzes.update', $quiz->id)}}" method="POST" novalidate>
               @csrf
+              @method('PUT')
                <div class="form-group">
                     <label> Quiz title </label>
-                    <input type="text" name="title" class="form-control" value="{{old('title')}}">
+                    <input type="text" name="title" class="form-control" value="{{$quiz->title}}">
                </div>
                
 
                <div class="form-group">
                     <label> Quiz Description </label>
-                    <textarea name="description" value="{{old('title')}}" class="form-control" rows="4"></textarea>
+                    <textarea name="description" value="{{$quiz->description}}" class="form-control" rows="4"></textarea>
                </div>
 
 
