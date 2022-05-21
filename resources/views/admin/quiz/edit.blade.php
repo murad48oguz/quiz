@@ -21,6 +21,19 @@
                     <textarea name="description" value="{{$quiz->description}}" class="form-control" rows="4"></textarea>
                </div>
 
+               <div class="form-group">
+                <label> Quiz Status </label>
+                <select name="status" class="form-control">
+
+                    <option @if($quiz->questions_count<4) disabled @endif @if($quiz->status==='publish') selected @endif value="publish">Publish</option>
+                    <option @if($quiz->status==='passive') selected @endif value="passive">Passive</option>
+                    <option @if($quiz->status==='draft') selected @endif value="draft">Draft</option>
+
+
+                </select>
+                
+           </div>
+
 
                <div class="form-group">
                     <input id="isFinished" type="checkbox">

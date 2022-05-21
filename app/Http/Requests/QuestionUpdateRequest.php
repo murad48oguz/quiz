@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class QuizCreateRequest extends FormRequest
+class QuestionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,18 +24,16 @@ class QuizCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'bail|required|unique:quizzes|max:255',
+            'question'=>'required|min:3',
+            'image'=>'image|nullable|max:1024|mimes:jpg,jpeg,png',
+            'answer1'=>'required|min:3',
+            'answer2'=>'required|min:3',
+            'answer3'=>'required|min:3',
+            'answer4'=>'required|min:3',
+            'correct_answer'=>'required',
 
 
 
         ];
-
-
     }
-
-    // public function messages()
-    //     {
-    //         return ['title.required' => 'User name should be real name'];
-    //     }
-
 }

@@ -7,7 +7,7 @@
    
     <div class="card">
         <div class="card-body">
-            <form action="{{route('quizzes.store')}}" method="POST" novalidate>
+            <form action="{{route('quizzes.store')}}" method="POST" >
               @csrf
                <div class="form-group">
                     <label> Quiz title </label>
@@ -17,7 +17,7 @@
 
                <div class="form-group">
                     <label> Quiz Description </label>
-                    <textarea name="description" value="{{old('title')}}" class="form-control" rows="4"></textarea>
+                    <textarea name="description" value="{{old('description')}}" class="form-control" rows="4"></textarea>
                </div>
 
 
@@ -27,7 +27,7 @@
                </div>
 
 
-               <div id= "finishedInput" style="display: none" class="form-group">
+               <div id= "finishedInput" style="display:none" class="form-group">
                     <label> Finish Time </label>
                     <input type="datetime-local" name="finished_at" class="form-control">
                </div>
