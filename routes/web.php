@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,15 +24,25 @@ Route::get('/', function () {
 
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
+
+
+Route::group(['middleware'=>'auth'],function(){
+    Route::get('dashboard',[MainController::class,'dashboard'])->name('dashboard');
+    Route::get('quiz/detail/{slug}',[MainController::class,'quiz_detail'])->name('quiz_detail');
+    Route::get('quiz/{slug}',[MainController::class,'quiz'])->name('quiz.join');
+    Route::post('quiz/{slug}/result',[MainController::class,'result'])->name('quiz.result');
+
 });
+
 
 
 

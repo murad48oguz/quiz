@@ -24,7 +24,7 @@ class QuizUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'bail|required|unique:quizzes|max:255',
+            'title' => 'bail|required|max:255',
 
 
         ];

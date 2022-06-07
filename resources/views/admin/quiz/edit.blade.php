@@ -49,7 +49,7 @@
 
 
                
-                    <button type="submit" class="btn btn-success btn-sm btn-block"> Create a Quiz</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-block"> Update Quiz</button>
               
                
 

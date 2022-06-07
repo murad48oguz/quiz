@@ -90,8 +90,9 @@ class QuizController extends Controller
      */
     public function update(QuizUpdateRequest $request, $id)
     {
-        $quiz= Quiz::findOrFail($id)->update($request->except(['_method','_token']));
-        return redirect()->route('quizzes.index')->withSuccess('Quiz updated successfully!');
+        $quiz = Quiz::find($id) ?? abort(404, 'Quiz not found..!');
+        Quiz::find($id)->update($request->except(['_method', '_token']));
+        return redirect()->route('quizzes.index')->withSuccess('Quiz güncellemesi başarıyla gerçekleşti.');
     }
 
     /**
