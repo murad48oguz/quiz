@@ -7,6 +7,28 @@
 
                     <div class="col-md-4">
                         <ul class="list-group">
+                            @if($quiz->my_result)
+
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Point
+                                    <span class="badge bg-primary rounded-pill">{{ $quiz->my_result->point }}</span>
+                                </li>
+
+
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Correct / Wrong
+                                    <div class="float-right">
+                                        <span class="badge bg-success rounded-pill">{{ $quiz->my_result->correct }}
+                                            Correct</span>
+                                        <span class="badge bg-danger rounded-pill">{{ $quiz->my_result->wrong }}
+                                            Wrong</span>
+                                    </div>
+                                </li>
+
+                            @endif
+
                             @if($quiz->finished_at)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                Last joining date
@@ -17,14 +39,19 @@
                                 Number of Questions
                               <span class="badge bg-secondary rounded-pill">{{$quiz->questions_count}}</span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                The number of participants
-                              <span class="badge bg-secondary rounded-pill">14</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                             Average Point
-                              <span class="badge bg-secondary rounded-pill">2</span>
-                            </li>
+                            @if($quiz->details)
+
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    The number of participants
+                                <span class="badge bg-secondary rounded-pill">{{$quiz->details['joiner_count']}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Average Point
+                                <span class="badge bg-secondary rounded-pill">{{$quiz->details['average']}}</span>
+                                </li>
+
+                            @endif
 
                           </ul>
                     </div>
@@ -32,8 +59,14 @@
 
 
                         <p>{{$quiz->description}}</p>
-                        <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-primary btn-block btn-sm">Join to Quiz</a>
 
+                        @if($quiz->my_result)
+
+                            <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-secondary btn-block btn-sm">Show Quiz</a>
+
+                        @else
+                                <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-primary btn-block btn-sm">Join to Quiz</a>
+                        @endif
                     </div>
               </div>
         </div>

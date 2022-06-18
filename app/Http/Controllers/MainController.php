@@ -21,7 +21,7 @@ class MainController extends Controller
     }
 
     public function quiz_detail($slug){
-        $quiz = Quiz::whereSlug($slug)->withCount('questions')->firstOrFail();
+        $quiz = Quiz::whereSlug($slug)->with('my_result','results')->withCount('questions')->firstOrFail();
         return view('quiz_detail',compact('quiz'));
     }
 
@@ -29,6 +29,11 @@ class MainController extends Controller
 
         $quiz = Quiz::with('questions')->whereSlug($slug)->first();
         $correct = 0;
+
+        if($quiz->my_result){
+            abort(404,'You completed this quiz before');
+        }
+
         foreach($quiz->questions as $question){
             Answer::create([
                 'user_id'=>auth()->user()->id,

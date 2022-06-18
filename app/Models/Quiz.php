@@ -13,10 +13,29 @@ class Quiz extends Model
     use HasFactory;
     protected $fillable = ['title','description','status','finished_at',];
     protected $dates = ['finished_at'];
+    protected $appends = ['details'];
 
     public function getFinishedAttribute($date){
 
         return $date ? Carbon::parse($date) : null;
+
+    }
+
+
+    public function getDetailsAttribute(){
+       if($this->results()->count()>0){
+
+        return [
+
+            'average'=>round($this->results()->avg('point')),
+            'joiner_count'=>$this->results()->count()
+
+        ];
+
+       }
+
+       return null;
+
 
     }
 
@@ -26,6 +45,15 @@ class Quiz extends Model
         return $this->hasMany(Question::class);
 
     }
+
+    public function my_result(){
+        return $this->hasOne('App\Models\Result')->where('user_id',auth()->user()->id);
+    }
+
+    public function results(){
+        return $this->hasMany('App\Models\Result');
+    }
+
 
     public function sluggable(): array
     {
