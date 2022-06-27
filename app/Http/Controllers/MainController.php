@@ -16,12 +16,15 @@ class MainController extends Controller
     }
 
     public function quiz($slug){
-        $quiz = Quiz::whereSlug($slug)->with('questions')->first();
+        $quiz = Quiz::whereSlug($slug)->with('questions.my_answer')->firstOrFail();
+        if ($quiz->my_result){
+            return view('quiz_result',compact('quiz'));
+        }
         return view('quiz',compact('quiz'));
     }
 
     public function quiz_detail($slug){
-        $quiz = Quiz::whereSlug($slug)->with('my_result','results')->withCount('questions')->firstOrFail();
+        $quiz = Quiz::whereSlug($slug)->with('my_result','topTen.user')->withCount('questions')->firstOrFail();
         return view('quiz_detail',compact('quiz'));
     }
 

@@ -7,6 +7,15 @@
 
                     <div class="col-md-4">
                         <ul class="list-group">
+                            @if($quiz->my_rank)
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Order
+                                    <span class="badge bg-primary rounded-pill">{{ $quiz->my_rank }}</span>
+                                </li>
+
+                            @endif
+
                             @if($quiz->my_result)
 
 
@@ -53,7 +62,38 @@
 
                             @endif
 
+
                           </ul>
+
+                          <div class="card mt-3">
+
+                                <div class="card-body">
+
+                                    <h5 class="card-title"> First 10</h5>
+
+                                        <ul class="list-group">
+
+                                            @foreach ($quiz->topTen as $result)
+
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <strong class="h6">{{ $loop->iteration."." }}</strong>
+                                                <img src="{{ $result->user->profile_photo_url }}" class="w-8 rounded-full" alt="{{ $result->user->name }}">
+                                                <span @if(auth()->user()->id == $result->user_id) class="text-warning" @endif>{{ $result->user->name }}</span>
+                                                <span class="badge badge-info badge-pill">{{ $result->point }}</span>
+                                            </li>
+                                        @endforeach
+
+                                        </ul>
+
+
+
+                                </div>
+
+
+
+                          </div>
+
+
                     </div>
                     <div class="col-md-8">
 

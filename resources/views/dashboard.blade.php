@@ -27,7 +27,7 @@
 
             </div>
               <div class="col-md-4">
-                  trying
+
               </div>
         </div>
 
